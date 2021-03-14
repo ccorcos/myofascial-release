@@ -6,6 +6,8 @@ One thing I've found dissatisfying, however, is that these devices only come in 
 
 This repository uses OpenSCAD to generate 3D printable models with configurable sizes. Grab one of the [prebuilt STL files](./stl) and print one yourself.
 
+![sizes](./pso.png)
+
 ## Developer
 
 ```sh
