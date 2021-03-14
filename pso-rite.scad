@@ -1,29 +1,28 @@
 // 1 = inch
 
+// Parameters
+actualPeakSpace = 4;
+actualPeakHeight = 6;
+smoothingSize = 0.1;
+podiumHeight = 1;
+$fn=16;
 
-actualPeakHeight = 5;
-smoothing = 0.1;
 
-peakHeight = actualPeakHeight - smoothing * 2;
-peakWidth = 0.2*actualPeakHeight - smoothing*2;
+// Derived variables
+peakHeight = actualPeakHeight - smoothingSize * 2;
+peakWidth = 0.2*actualPeakHeight - smoothingSize*2;
 triangleBase = 0.7*peakHeight;
 
 depth = peakHeight;
 
-peakSpace = 6;
-innerSpace = peakSpace - peakWidth - 2 * smoothing;
-podium = 1;
+innerSpace = actualPeakSpace - peakWidth - 2 * smoothingSize;
 
 sphereRadius = peakWidth/2;
-smallSphereRadius = sphereRadius/2;
-
 
 profileRadius = depth/2 * 0.75;
 
 triangleBaseOffset = peakWidth/4;
 
-// $fn=40;
-$fn=16;
 
 
 // ===============================================
@@ -41,7 +40,7 @@ module roundNub() {
 			cylinder(small, profileRadius - sphereRadius, profileRadius - sphereRadius);
 
 			translate([-small/2, 0, sphereRadius])
-			cube([small, podium, depth - sphereRadius*2]);
+			cube([small, podiumHeight, depth - sphereRadius*2]);
 		};
 
 		sphere(sphereRadius);
@@ -65,14 +64,14 @@ module nubBase() {
 				translate([
 					-triangleBase/2 + triangleBaseOffset,
 					0,
-					smallSphereRadius
+					smoothingSize
 				])
 				cube([
-					triangleBase - smallSphereRadius*2,
+					triangleBase - smoothingSize*2,
 					0.01,
-					depth - smallSphereRadius*2]);
+					depth - smoothingSize*2]);
 
-				sphere(smallSphereRadius);
+				sphere(smoothingSize);
 			};
 
 			intersection() {
@@ -118,7 +117,7 @@ module betterRightNub() {
 
 module platformPlane() {
 	translate([-5, 0, -5])
-			cube([20, podium, 20]);
+			cube([20, podiumHeight, 20]);
 }
 
 module platform() {
@@ -151,5 +150,5 @@ minkowski () {
 		};
 	};
 
-	sphere(smallSphereRadius);
+	sphere(smoothingSize);
 };
