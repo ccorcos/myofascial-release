@@ -1,3 +1,7 @@
+// Notes from Jon:
+// The slicer will hollow everything out for you, don't have to do that yourself.
+// Might be cheaper if you can break it into smaller parts and glue it together.
+//
 // 1 = inch
 
 // Parameters
@@ -155,50 +159,9 @@ module roughObject() {
 }
 
 
-big = 100;
 
-
-module lattice() {
-	union() {
-		for (i = [0:scaffoldSeparation:big-2]) {
-			translate([i+1, 0, 0])
-			cube([scaffoldThickness, big, big]);
-		}
-
-		for (i = [0:scaffoldSeparation:big-2]) {
-			translate([0, i+1, 0])
-			cube([big, scaffoldThickness, big-2]);
-		}
-
-		for (i = [0:scaffoldSeparation:big-2]) {
-			translate([0, 0, i+1])
-			cube([big, big, scaffoldThickness]);
-		}
-	}
-}
-
-module scaffold() {
-	rotate([0, 45, 0])
-	rotate([45, 0, 0])
-	translate([-big/2, -big/2, -big/2])
-	lattice();
-}
-
-// lattice();
-
-// rotate([90, 0, 0])
-// union() {
-// 	difference() {
-// 		minkowski () {
-// 			roughObject();
-// 			sphere(smoothingSize);
-// 		};
-
-// 		roughObject();
-// 	};
-
-// 	intersection() {
-// 		scaffold();
-// 		roughObject();
-// 	};
-// }
+rotate([90, 0, 0])
+minkowski () {
+	roughObject();
+	sphere(smoothingSize);
+};
