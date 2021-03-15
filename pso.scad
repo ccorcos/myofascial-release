@@ -7,11 +7,8 @@
 // Parameters
 actualPeakSpace = 4;
 actualPeakHeight = 6;
-smoothingSize = 0.4;
+smoothingSize = 0.1;
 podiumHeight = 1;
-
-scaffoldThickness = 0.05;
-scaffoldSeparation = 0.3;
 
 $fn=16;
 
