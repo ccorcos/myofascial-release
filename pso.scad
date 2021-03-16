@@ -5,9 +5,9 @@
 // 1 = inch
 
 // Parameters
-actualPeakSpace = 4;
+actualPeakSpace = 7;
 actualPeakHeight = 6;
-smoothingSize = 0.3;
+smoothingSize = 0.2;
 podiumHeight = 1;
 
 $fn=16;
@@ -157,8 +157,6 @@ module roughObject() {
 
 
 
-
-
 module smoothObject() {
 	minkowski () {
 		roughObject();
@@ -166,21 +164,35 @@ module smoothObject() {
 	};
 }
 
-module hollowObject() {
+
+module platformSupport() {
 	difference() {
-		smoothObject();
-		roughObject();
+		platform();
+		betterLeftNub();
+		betterRightNub();
+	};
+}
+
+module hollowObject() {
+	union() {
+		difference() {
+			smoothObject();
+			roughObject();
+		}
+		platformSupport();
 	}
 }
 
-// Cut the object somewhere...
-// difference() {
-// 	hollowObject();
-// 	translate([-5, -1, -5])
-// 		cube([20,1,20]);
-// }
 
-// roughObject();
+
 
 rotate([90, 0, 0])
-hollowObject();
+difference() {
+	hollowObject();
+	translate([-5, -1, -5])
+		cube([20,1,20]);
+}
+
+// platform();
+// roughObject();
+// hollowObject();
