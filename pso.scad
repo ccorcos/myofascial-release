@@ -7,7 +7,7 @@
 // Parameters
 actualPeakSpace = 4;
 actualPeakHeight = 6;
-smoothingSize = 0.1;
+smoothingSize = 0.3;
 podiumHeight = 1;
 
 $fn=16;
@@ -157,8 +157,30 @@ module roughObject() {
 
 
 
+
+
+module smoothObject() {
+	minkowski () {
+		roughObject();
+		sphere(smoothingSize);
+	};
+}
+
+module hollowObject() {
+	difference() {
+		smoothObject();
+		roughObject();
+	}
+}
+
+// Cut the object somewhere...
+// difference() {
+// 	hollowObject();
+// 	translate([-5, -1, -5])
+// 		cube([20,1,20]);
+// }
+
+// roughObject();
+
 rotate([90, 0, 0])
-minkowski () {
-	roughObject();
-	sphere(smoothingSize);
-};
+hollowObject();
