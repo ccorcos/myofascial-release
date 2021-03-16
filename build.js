@@ -9,7 +9,7 @@ const quality = 40; // 16 is way faster
 for (const width of widths) {
   const cmd = [
     cli,
-    `-o stl/pso-${width}.stl`,
+    `-o stl/pso-hollow-${width}.stl`,
     `-D 'actualPeakSpace = ${width}'`,
     `-D '$fn = ${quality}'`,
     `pso.scad`,
